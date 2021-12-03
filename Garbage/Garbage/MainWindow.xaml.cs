@@ -6,6 +6,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 using System.Linq;
+using System.IO;
 
 namespace Garbage
 {
@@ -25,6 +26,7 @@ namespace Garbage
 
         Storyboard storyboard = new Storyboard();
         MediaTimeline mediaTimeline = new MediaTimeline();
+        ClientLogic Client = new ClientLogic();
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
@@ -100,7 +102,28 @@ namespace Garbage
                 go_player = false;
 
                 var image = GetCrop(Video);
+                if(image != null)
+                {
+                    var ser = BitmapFromSource(image);
+                    if(ser is not null)
+                    {
+                        var response = Client.Post("api", ser);
+
+                        var rsp = response.Content.ReadAsStringAsync().Result;
+                    }
+                }
                 mainImage.Source = image;
+            }
+        }
+
+        private byte[] BitmapFromSource(BitmapSource bitmapsource)
+        {
+            using(MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapsource));
+                enc.Save(outStream);
+                return outStream.ToArray();
             }
         }
 
