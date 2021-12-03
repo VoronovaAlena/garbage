@@ -1,42 +1,89 @@
-﻿using LibVLCSharp.Shared;
+﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace Garbage
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		private LibVLC _libvlc;
-		private string video_url = $@"D:\Videos\2021-01-10-13.30.00.876-+0300.mkv";
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
 
-		public MainWindow()
-		{
-			InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 
-			// Initialize VLC
-			Core.Initialize();
-			_libvlc = new LibVLC();
-			vlcView.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libvlc);
-			// video_URL is a video play address
-			var m = new Media(_libvlc, video_url, FromType.FromLocation);
-			m.AddOption(":rtsp-tcp");
-			vlcView.MediaPlayer.Play(m);
-		}
-	}
+            storyboard.CurrentTimeInvalidated += Storyboard_CurrentTimeInvalidated;
+            storyboard.Children.Add(mediaTimeline);
+        }
+
+        Storyboard storyboard = new Storyboard();
+        MediaTimeline mediaTimeline = new MediaTimeline();
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            storyboard.Resume(Video);
+        }
+        private void Pause_Click(object sender, RoutedEventArgs e)
+        {
+            storyboard.Pause(Video);
+        }
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            storyboard.Stop(Video);
+            mediaTimeline.Source = null;
+        }
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog() { Multiselect = false, Filter = "MP4 File|*.mp4|All File|*.*" };
+            if(openFileDialog.ShowDialog() == true)
+            {
+                mediaTimeline.Source = new Uri(openFileDialog.FileName);
+                storyboard.Begin(Video, true);
+            }
+        }
+
+        // При открытии файла максимум ползунка ставим в зависимости от длительности видео
+        private void Video_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            TimerSlider.Maximum = Video.NaturalDuration.TimeSpan.TotalSeconds;
+        }
+
+
+        private bool go_player;
+
+        private void Storyboard_CurrentTimeInvalidated(object sender, EventArgs e)
+        {
+
+            //Получаем значение времени для раскадровки
+            Clock storyboardClock = (Clock)sender;
+
+            if(storyboardClock.CurrentProgress != null)
+            {
+                go_player = true;
+                TimerSlider.Value = storyboardClock.CurrentTime.Value.TotalSeconds;
+                go_player = false;
+            }
+        }
+
+        private void TimerSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            storyboard.Pause(Video);
+        }
+
+        private void TimerSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            storyboard.Seek(Video, TimeSpan.FromSeconds(TimerSlider.Value), TimeSeekOrigin.BeginTime);
+            storyboard.Resume(Video);
+        }
+
+        private void TimerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(!go_player)
+                storyboard.Seek(Video, TimeSpan.FromSeconds(TimerSlider.Value), TimeSeekOrigin.BeginTime);
+        }
+    }
 }

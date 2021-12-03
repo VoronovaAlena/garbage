@@ -3,14 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
-        xmlns:local="clr-namespace:Garbage" 
-        xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
+        xmlns:local="clr-namespace:Garbage"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <!--<Vlc:VlcControl x:Name="MyControl" Margin="20" />-->
 
-        <vlc:VideoView x:Name="vlcView" Margin="20"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <MediaElement x:Name="Video" 
+                      Grid.Column="0" 
+                      Grid.Row="0"
+                      LoadedBehavior="Manual" 
+                      UnloadedBehavior="Close"
+                      MediaOpened="Video_MediaOpened"/>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+            
+            <Button x:Name="Play" 
+                    Margin="0,0,5,0" 
+                    Click="Play_Click" 
+                    Content="Play" />
+
+            <Button x:Name="Pause" 
+                    Margin="0,0,5,0" 
+                    Click="Pause_Click" 
+                    Content="Pause"/>
+
+            <Button x:Name="Stop" 
+                    Content="Stop" 
+                    Click="Stop_Click"/>
+
+            <Button x:Name="OpenFile" 
+                    Click="OpenFile_Click"  
+                    Content="Open file" />
+        </StackPanel>
+
+        <Slider Grid.Row="2" 
+                Grid.ColumnSpan="2"
+                x:Name="TimerSlider"
+                IsMoveToPointEnabled="True"
+                AutoToolTipPlacement="BottomRight" 
+                ValueChanged="TimerSlider_ValueChanged"
+                Thumb.DragStarted="TimerSlider_DragStarted" 
+                Thumb.DragCompleted="TimerSlider_DragCompleted"  />
     </Grid>
+
 </Window>
