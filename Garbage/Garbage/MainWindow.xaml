@@ -95,10 +95,60 @@
         <TextBlock Grid.Row="3" 
                    Grid.ColumnSpan="2"
                    Margin="10"
-                   Background="#FFDDDEEE"
-                   Text=""/>
-    
-    
+                   Background="#FFDDDEEE" FontSize="16">
+            <Run>03.12.21 17:35:26 Мусорный бак заполнен - ул. Горького, д. 15</Run>
+            <LineBreak/>
+            <Run>03.12.21 17:38:15 Мусорный бак заполнен - ул. Володарского, д. 27</Run>
+            <LineBreak/>
+            <Run>03.12.21 17:42:53 Мусорный бак заполнен - ул. Ленина, д. 11</Run>
+            <LineBreak/>
+        </TextBlock>
+
+        <GroupBox Grid.RowSpan="4" 
+                  Grid.Column="2" 
+                  Margin="10"
+                  Header="Модули">
+            <ListBox Grid.RowSpan="4" 
+                 Grid.Column="2" 
+                 Margin="10">
+                <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Content="Детектор заполненности мусорных баков" 
+                          IsChecked="True" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          FontSize="20" />
+                </ListBoxItem>
+                <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Content="Детектор мусора" 
+                          IsChecked="False" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          FontSize="20" />
+                </ListBoxItem>
+                <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Content="Уборка снега" 
+                          IsChecked="False" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          FontSize="20" />
+                </ListBoxItem>
+                <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Content="Обнаружение вандализма" 
+                          IsChecked="False" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          FontSize="20" />
+                </ListBoxItem>
+                <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Content="Стоянка автомобилей на газоне" 
+                          IsChecked="False" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          FontSize="20" />
+                </ListBoxItem>
+            </ListBox>
+        </GroupBox>
+
 
     </Grid>
 
