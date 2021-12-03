@@ -57,7 +57,7 @@
                     Margin="0,0,5,0" 
                     Height="40"
                     Width="100"
-                    Click="OpenFile_Click"  
+                    Click="OnOpenFileClick"  
                     Content="Open file" />
 
             <Button x:Name="Play" 

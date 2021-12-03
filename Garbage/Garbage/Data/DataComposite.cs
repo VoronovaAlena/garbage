@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-	
 	public class BinaryData
 	{
-		[JsonArray(true)]
 		[JsonProperty("boxes")]
 		public int[] boxes { get; set; }
 
@@ -18,11 +16,7 @@ namespace Data
 		public string[] classes { get; set; }
 	}
 
-	public class Root
-	{
-		public List<Dictionary<string, object>> RootData { get; set; }
-	}
-
+	/// <summary>Вспомогательный класс для работы с Json.</summary>
 	public static class JsonParse
 	{
 		public static T Deserialize<T>(string data) where T : class
