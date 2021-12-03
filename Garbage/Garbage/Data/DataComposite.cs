@@ -10,7 +10,7 @@ namespace Data
 	public class BinaryData
 	{
 		[JsonProperty("boxes")]
-		public int[] boxes { get; set; }
+		public List<int[]> boxes { get; set; }
 
 		[JsonProperty("class_names")]
 		public string[] classes { get; set; }
