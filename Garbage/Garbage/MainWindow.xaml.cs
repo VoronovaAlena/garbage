@@ -109,7 +109,7 @@ namespace Garbage
 				if(image != null)
 				{
 					var ser = SerilizationImageSource(image);
-					Detect(ser, image);
+					Detect(ser, image, true);
 				}
 			}
 		}
@@ -156,7 +156,11 @@ namespace Garbage
 
 		#region Methods
 
-		private void Detect(byte[] ser, BitmapSource image)
+		/// <summary>Метод распознавания.</summary>
+		/// <param name="ser">Картинка, отправляемая на сервер.</param>
+		/// <param name="image">Исходное изображение.</param>
+		/// <param name="locked">Блокирование пустых кадров.</param>
+		private void Detect(byte[] ser, BitmapSource image, bool locked = false)
 		{
 			if(ser is not null)
 			{
@@ -205,7 +209,7 @@ namespace Garbage
 							}
 							mainImage.Source = CopyPixels(image, imageR, image.PixelWidth * 4, 0);
 						}
-						else
+						else if(!locked)
 						{
 							mainImage.Source = image;
 						}
