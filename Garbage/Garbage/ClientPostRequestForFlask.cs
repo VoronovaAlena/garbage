@@ -32,7 +32,14 @@ namespace Garbage
 
 		public HttpResponseMessage Send(string api, byte[] ser)
 		{
-			return Task.Run(() => Client.Post(_base + api, ser)).Result;
+			try
+			{
+				return Task.Run(() => Client.Post(_base + api, ser)).Result;
+			}
+			catch
+			{
+				return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+			}
 		}
 	}
 }

@@ -53,6 +53,7 @@ namespace Garbage
 
 		private void Play_Click(object sender, RoutedEventArgs e)
 		{
+			_storyboard.Seek(Video, TimeSpan.FromSeconds(TimerSlider.Value), TimeSeekOrigin.BeginTime);
 			_storyboard.Resume(Video);
 		}
 
@@ -63,7 +64,9 @@ namespace Garbage
 
 		private void Stop_Click(object sender, RoutedEventArgs e)
 		{
+			TimerSlider.Value = 0;
 			_storyboard.Stop(Video);
+			_storyboard.Seek(TimeSpan.Zero,TimeSeekOrigin.BeginTime);
 			_mediaTimeline.Source = null;
 		}
 
@@ -77,7 +80,6 @@ namespace Garbage
 				{
 					var ser = SerilizationImageSource(image);
 					Detect(ser, image);
-					//mainImage.Source = image;
 				}
 			}
 		}
@@ -141,9 +143,16 @@ namespace Garbage
 			RTSPOpenWindow window = new RTSPOpenWindow();
 			window.ShowDialog();
 
-			if(window.RTSP.Text != "")
+			try
 			{
-				Video.Source = new Uri(window.RTSP.Text);
+				if(window.RTSP.Text != "")
+				{
+					Video.Source = new Uri(window.RTSP.Text);
+				}
+			}
+			catch (Exception exc)
+			{
+				Log.Text = $"{exc}()\n Соединение по RTSP не удалось.";
 			}
 		}
 
