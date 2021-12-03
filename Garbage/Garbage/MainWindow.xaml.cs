@@ -100,7 +100,9 @@ namespace Garbage
                 go_player = false;
 
                 var image = GetCrop(Video);
-                
+                mainImage.Source = image;
+
+                Video.Source = image;
             }
         }
 
