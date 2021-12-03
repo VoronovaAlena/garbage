@@ -101,8 +101,6 @@ namespace Garbage
 
                 var image = GetCrop(Video);
                 mainImage.Source = image;
-
-                Video.Source = image;
             }
         }
 
