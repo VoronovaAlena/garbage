@@ -3,6 +3,9 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+
+using System.Linq;
 
 namespace Garbage
 {
@@ -52,6 +55,35 @@ namespace Garbage
             TimerSlider.Maximum = Video.NaturalDuration.TimeSpan.TotalSeconds;
         }
 
+        private BitmapFrame GetCrop(UIElement elt)
+        {
+            double h = elt.RenderSize.Height;
+            double w = elt.RenderSize.Width;
+            if(h > 0)
+            {
+                PresentationSource source = PresentationSource.FromVisual(elt);
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)w, (int)h, 96, 96, PixelFormats.Default);
+
+                VisualBrush sourceBrush = new VisualBrush(elt);
+                DrawingVisual drawingVisual = new DrawingVisual();
+                DrawingContext drawingContext = drawingVisual.RenderOpen();
+                using(drawingContext)
+                {
+                    drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0),
+                          new Point(w, h)));
+                }
+                rtb.Render(drawingVisual);
+
+                // return rtb;
+                var encoder = new PngBitmapEncoder();
+                var outputFrame = BitmapFrame.Create(rtb);
+                encoder.Frames.Add(outputFrame);
+
+                return encoder.Frames.FirstOrDefault();
+            }
+            return null;
+        }
+
 
         private bool go_player;
 
@@ -66,7 +98,15 @@ namespace Garbage
                 go_player = true;
                 TimerSlider.Value = storyboardClock.CurrentTime.Value.TotalSeconds;
                 go_player = false;
+
+                var image = GetCrop(Video);
+                
             }
+        }
+
+        private void Image_MediaOpened(object sender, RoutedEventArgs eventArgs)
+        { 
+            
         }
 
         private void TimerSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
@@ -85,10 +125,5 @@ namespace Garbage
             if(!go_player)
                 storyboard.Seek(Video, TimeSpan.FromSeconds(TimerSlider.Value), TimeSeekOrigin.BeginTime);
         }
-
-		private void Image_MediaOpened(object sender, RoutedEventArgs e)
-		{
-
-		}
-	}
+    }
 }

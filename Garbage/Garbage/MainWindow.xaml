@@ -29,15 +29,10 @@
                           UnloadedBehavior="Close"
                           MediaOpened="Video_MediaOpened"/>
         </Border>
-        
-        <Border Grid.Column="1" 
-                Grid.Row="0" 
-                Margin="10" >
-            <MediaElement x:Name="Image"
-                          LoadedBehavior="Manual"
-                          UnloadedBehavior="Close"
-                          MediaOpened="Image_MediaOpened"/>
-        </Border>
+
+        <Image Grid.Column="1" Grid.Row="0" x:Name="mainImage">
+           
+        </Image>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2"
                     Orientation="Horizontal" 
