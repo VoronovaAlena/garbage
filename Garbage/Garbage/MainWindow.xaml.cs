@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 
 using System.Linq;
 using System.IO;
+using Data;
 
 namespace Garbage
 {
@@ -108,8 +109,9 @@ namespace Garbage
                     if(ser is not null)
                     {
                         var response = Client.Post("api", ser);
-
                         var rsp = response.Content.ReadAsStringAsync().Result;
+
+                        var result = JsonParse.Deserialize<Root>(rsp);
                     }
                 }
                 mainImage.Source = image;
