@@ -47,3 +47,16 @@ convalution havn't activate linear
 convalution havn't activate linear
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 
+ ### Вывод консоли
+            Preprocess : 0.001994
+      Model Inference : 0.078301
+-----------------------------------
+-----------------------------------
+       max and argmax : 0.000000
+                  nms : 0.000000
+Post processing total : 0.000000
+-----------------------------------
+Исходные bounding boxes:  [[]]
+[]
+127.0.0.1 - - [04/Dec/2021 02:09:37] "POST /api HTTP/1.1" 200 -
+
