@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         d:Height="1080" 
         d:Width="1920"
-        WindowState="Maximized" Background="#FF878585"
+        WindowState="Maximized" 
+        Background="#FF878585"
         Title="Garbage Collector">
 
     <Grid>
@@ -45,6 +46,13 @@
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center">
 
+            <Button x:Name="OpenRTSP" 
+                    Margin="0,0,5,0" 
+                    Height="40"
+                    Width="100"
+                    Click="OpenRTSP_Click"  
+                    Content="RTSP" />
+            
             <Button x:Name="OpenFile" 
                     Margin="0,0,5,0" 
                     Height="40"
@@ -89,8 +97,9 @@
                    Margin="10"
                    Background="#FFDDDEEE"
                    Text=""/>
-        
-        
+    
+    
+
     </Grid>
 
 </Window>
