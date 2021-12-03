@@ -85,5 +85,10 @@ namespace Garbage
             if(!go_player)
                 storyboard.Seek(Video, TimeSpan.FromSeconds(TimerSlider.Value), TimeSeekOrigin.BeginTime);
         }
-    }
+
+		private void Image_MediaOpened(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
 }
