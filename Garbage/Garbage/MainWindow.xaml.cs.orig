@@ -7,9 +7,13 @@ using System.Windows.Media.Imaging;
 
 using System.Linq;
 using System.IO;
+<<<<<<< HEAD
 using Data;
 using System.Collections.Generic;
 using Garbage.Frameworks;
+=======
+using System.Collections.Generic;
+>>>>>>> 225489e... --
 
 namespace Garbage
 {
