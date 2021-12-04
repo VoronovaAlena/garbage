@@ -39,7 +39,7 @@
                   Margin="10"
                   Header="Постобработка">
             <Image x:Name="mainImage">
-        </Image>
+            </Image>
         </GroupBox>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2"
@@ -52,7 +52,12 @@
                     Width="100"
                     Click="OpenRTSP_Click"  
                     Content="RTSP" />
-            
+            <Button x:Name="OpenRTSP_Image" 
+                Height="40"
+                Width="100"
+                Click="OpenImage_Click"  
+                Content="Open Image" />
+
             <Button x:Name="OpenFile" 
                     Margin="0,0,5,0" 
                     Height="40"
@@ -80,11 +85,11 @@
                     Height="40"
                     Width="100"
                     Click="Stop_Click"/>
-            <Button x:Name="OpenRTSP_Image" 
-                Height="40"
-                Width="100"
-                Click="OpenImage_Click"  
-                Content="Open Image" />
+            <Button x:Name="Stat" 
+                    Content="Statistics" 
+                    Margin="0,0,5,0"
+                    Height="40"
+                    Width="100"/>
         </StackPanel>
 
         <Slider Grid.Row="1" 
@@ -131,14 +136,14 @@
                           FontSize="20" />
                 </ListBoxItem>
                 <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <CheckBox Content="Уборка снега" 
+                    <CheckBox Content="Мониторинг уборки снега" 
                           IsChecked="False" 
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Center" 
                           FontSize="20" />
                 </ListBoxItem>
                 <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <CheckBox Content="Обнаружение вандализма" 
+                    <CheckBox Content="Обнаружение факта вандализма" 
                           IsChecked="False" 
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Center" 
@@ -146,6 +151,13 @@
                 </ListBoxItem>
                 <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <CheckBox Content="Стоянка автомобилей на газоне" 
+                          IsChecked="False" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          FontSize="20" />
+                </ListBoxItem>
+                <ListBoxItem Height="60" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <CheckBox Content="Обнаружение ям и трещин на дорогах и тротуарах" 
                           IsChecked="False" 
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Center" 
