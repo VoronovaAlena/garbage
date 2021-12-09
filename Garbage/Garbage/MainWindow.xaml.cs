@@ -200,11 +200,10 @@ namespace Garbage
 
 							foreach(var box in boxes)
 							{
-								var minX = Math.Max(box[0] - box[2] / 2, 0);
-								var maxX = Math.Min(box[0] + box[2] / 2, (int)image.PixelWidth - 1);
-
-								var minY = Math.Max(box[1] - box[3] / 2, 0);
-								var maxY = Math.Min(box[1] + box[3] / 2, (int)image.PixelHeight - 1);
+								var minX = box[0];
+								var maxX = box[2];
+								var minY = box[1];
+								var maxY = box[3];
 
 								for(int i = minX; i < maxX; i++)
 								{
